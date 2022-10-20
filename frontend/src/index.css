@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}
+
+.main-screen {
+    min-height: 100vh;
+}
+
+.rating span {
+    color: #ffc000;
+}
+
+.btn {
+    border: 2px solid black;
+}
+
+.img-large {
+    max-width: 100%;
+}
+
+.footer p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.img-thumbnail {
+    height: 80px;
+}
+
+.form-width {
+    max-width: 600px;
+}
+
+.checkout-steps>div {
+    border-bottom: 0.2rem solid #a0a0a0;
+    color: #a0a0a0;
+}
+
+.checkout-steps>div.active {
+    border-bottom: 0.2rem solid #f08000;
+    color: #f08000;
+}
+
+.carousel-images img {
+    height: 600px;
+}
