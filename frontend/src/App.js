@@ -12,6 +12,8 @@ import SignupScreen from './Screen/SignupScreen';
 import PaymentScreen from './Screen/PaymentScreen';
 import ProfileScreen from './Screen/ProfileScreen';
 import ProtectedRoute from './components/ProtectedRoute';
+import PlaceOrderScreen from './Screen/PlaceOrderScreen';
+import OrderScreen from './Screen/OrderScreen';
 
 function App() {
   return (
@@ -37,7 +39,9 @@ function App() {
             />
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
+            <Route path="/placeorder" element={<PlaceOrderScreen />} />
             <Route path="/product/:slug" element={<ProductScreen />} />
+            <Route path="/order/:id" element={<OrderScreen />} />
           </Routes>
         </main>
 
