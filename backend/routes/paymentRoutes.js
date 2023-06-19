@@ -59,7 +59,7 @@ paymentRouter.post(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const { amount, currency } = req.body;
-    console.log(req.body, 'body data');
+    // console.log(req.body, 'body data');
     const newAmount = amount.toFixed() * 100;
     const options = {
       amount: newAmount,
@@ -80,8 +80,6 @@ paymentRouter.post(
     let order_id = payload.razorpay_order_id;
     let signature = payload.razorpay_signature;
 
-    console.log(payload, 'on_success');
-
     //Checking the valid payment via Razorpay
     let key = order_id + '|' + payment_id;
     let expectedSignature = crypto
@@ -89,11 +87,7 @@ paymentRouter.post(
       .update(key.toString())
       .digest('hex');
 
-    console.log(expectedSignature, 'signature');
-
     if (expectedSignature === signature) {
-      console.log('Validation done');
-
       //Order exist or not
       let order = await Order.findById(req.params.id);
 

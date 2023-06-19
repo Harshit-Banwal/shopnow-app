@@ -15,7 +15,7 @@ dotenv.config();
 
 // DB connection
 mongoose
-  .connect(process.env.MONGO_DB_URL_LOCAL)
+  .connect(process.env.MONGO_DB_URL)
   .then(() => {
     console.log('DB connect Successfully');
   })

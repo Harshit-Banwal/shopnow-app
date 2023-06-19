@@ -82,7 +82,7 @@ const SigninScreen = () => {
           <button type="submit" className="btn btn-primary">
             Sign In
           </button>
-          <div className="mb-3">
+          <div className="mt-3 mb-3">
             New Customer?{' '}
             <Link to={`/signup?redirect=${redirect}`}>Create new account</Link>
           </div>

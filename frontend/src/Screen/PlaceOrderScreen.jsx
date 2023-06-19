@@ -90,10 +90,10 @@ const PlaceOrderScreen = () => {
 
       <div className="container">
         <h1 className="m-3 text-center">Preview Order</h1>
-        <div className="container">
+        <div>
           <div className="row">
-            <div className="col-8">
-              <div className="card mb-3" style={{ width: '45rem' }}>
+            <div className="col-12 col-md-8">
+              <div className="card mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Shipping</h5>
                   <p>
@@ -106,7 +106,7 @@ const PlaceOrderScreen = () => {
                   <Link to="/shipping">Edit</Link>
                 </div>
               </div>
-              <div className="card mb-3" style={{ width: '45rem' }}>
+              <div className="card mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Payment</h5>
                   <p>
@@ -115,14 +115,14 @@ const PlaceOrderScreen = () => {
                   <Link to="/payment">Edit</Link>
                 </div>
               </div>
-              <div className="card mb-3" style={{ width: '45rem' }}>
+              <div className="card mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Items</h5>
                   <ul className="list-group list-group-flush">
                     {cart.cartItems.map((item) => (
                       <li className="list-group-item" key={item.slug}>
                         <div className="row">
-                          <div className="col-8">
+                          <div className="col-7 col-md-6">
                             <img
                               src={item.image}
                               alt={item.name}
@@ -132,10 +132,10 @@ const PlaceOrderScreen = () => {
                               {item.name}
                             </Link>
                           </div>
-                          <div className="col-2">
+                          <div className="col-2 col-md-3">
                             <span>{item.quantity}</span>
                           </div>
-                          <div className="col-2">
+                          <div className="col-3 col-md-3">
                             <span>{item.price}</span>
                           </div>
                         </div>
@@ -146,41 +146,41 @@ const PlaceOrderScreen = () => {
                 </div>
               </div>
             </div>
-            <div className="col-4">
-              <div className="card" style={{ width: '25rem' }}>
+            <div className="col-12 col-sm-4">
+              <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">Order Summary</h5>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                       <div className="row">
-                        <div className="col">Items</div>
-                        <div className="col">
+                        <div className="col-6">Items</div>
+                        <div className="col-6">
                           &#8377;{cart.itemsPrice.toFixed(2)}
                         </div>
                       </div>
                     </li>
                     <li className="list-group-item">
                       <div className="row">
-                        <div className="col">Shipping</div>
-                        <div className="col">
+                        <div className="col-6">Shipping</div>
+                        <div className="col-6">
                           &#8377;{cart.shippingPrice.toFixed(2)}
                         </div>
                       </div>
                     </li>
                     <li className="list-group-item">
                       <div className="row">
-                        <div className="col">Tax</div>
-                        <div className="col">
+                        <div className="col-6">Tax</div>
+                        <div className="col-6">
                           &#8377;{cart.taxPrice.toFixed(2)}
                         </div>
                       </div>
                     </li>
                     <li className="list-group-item">
                       <div className="row">
-                        <div className="col">
+                        <div className="col-6">
                           <strong>Order Total</strong>
                         </div>
-                        <div className="col">
+                        <div className="col-6">
                           <strong>&#8377;{cart.totalPrice.toFixed(2)}</strong>
                         </div>
                       </div>

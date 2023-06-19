@@ -41,7 +41,7 @@ const CartScreen = () => {
 
         <div>
           <div className="row">
-            <div className="col-12 col-md-8">
+            <div className="mb-3 col-12 col-md-8">
               {cartItems.length === 0 ? (
                 <div className="alert alert-danger" role="alert">
                   <h4 className="alert-heading">Cart is Empty</h4>
@@ -51,13 +51,13 @@ const CartScreen = () => {
                   </p>
                 </div>
               ) : (
-                <div className="container">
+                <div>
                   <ul className="list-group">
                     {cartItems.map((item) => {
                       return (
                         <li key={item._id} className="list-group-item">
                           <div className="row">
-                            <div className="col-md-4">
+                            <div className="w-full col-5 col-md-4">
                               <img
                                 src={item.image}
                                 alt={item.name}
@@ -67,7 +67,7 @@ const CartScreen = () => {
                                 {item.name}
                               </Link>
                             </div>
-                            <div className="col-md-3">
+                            <div className="w-full col-3 col-md-3">
                               <button
                                 className="btn"
                                 onClick={() =>
@@ -88,8 +88,10 @@ const CartScreen = () => {
                                 <i className="fa-solid fa-plus"></i>
                               </button>
                             </div>
-                            <div className="col-md-3">₹{item.price}</div>
-                            <div className="col-md-2">
+                            <div className="w-full col-2 col-md-3">
+                              ₹{item.price}
+                            </div>
+                            <div className="w-full col-2 col-md-2">
                               <button
                                 className="btn"
                                 onClick={() => removeItemHandler(item)}
@@ -105,7 +107,7 @@ const CartScreen = () => {
                 </div>
               )}
             </div>
-            <div className="col-md-4">
+            <div className="col-12 col-md-4">
               <ul className=" list-group">
                 <li className="list-group-item">
                   <h3>

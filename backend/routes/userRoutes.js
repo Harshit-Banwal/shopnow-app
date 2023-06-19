@@ -3,8 +3,46 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import { isAuth, generateToken } from '../middleware/token.js';
+import transporter from '../helpers/mail.js';
 
 const userRouter = express.Router();
+
+userRouter.post(
+  '/getOtp',
+  expressAsyncHandler(async (req, res) => {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      return res.send({ Message: 'User already Exist.' });
+    }
+
+    let otp = Math.floor(100000 + Math.random() * 900000);
+    const ttl = 5 * 60 * 1000;
+    const expires = Date.now() + ttl;
+    console.log('otp: ', otp);
+
+    //Sending OTP to User's mail
+    const mailOptions = {
+      from: '"Shop-Now" <developerhb15@gmail.com>',
+      to: email,
+      subject: 'Shop Now - OTP Verification',
+      html: `<h4>This OTP is for your personal use only. Kindly refrain from sharing it with others</h4> 
+      <p>Here is Your Otp <span>${otp}</span></p>`,
+    };
+
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    res.status(201).send({ otp: otp, expire_in: expires });
+  })
+);
 
 userRouter.post(
   '/signin',

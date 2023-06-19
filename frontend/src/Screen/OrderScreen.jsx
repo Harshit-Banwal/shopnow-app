@@ -281,8 +281,8 @@ const OrderScreen = () => {
       <h1 className="my-3 text-center">Order {orderId}</h1>
       <div className="container">
         <div className="row">
-          <div className="col-8">
-            <div className="card mb-3" style={{ width: '45rem' }}>
+          <div className="col-12 col-md-8">
+            <div className="card mb-3">
               <div className="card-body">
                 <h5 className="card-title">Shipping</h5>
                 <p>
@@ -301,7 +301,7 @@ const OrderScreen = () => {
                 )}
               </div>
             </div>
-            <div className="card mb-3" style={{ width: '45rem' }}>
+            <div className="card mb-3">
               <div className="card-body">
                 <h5 className="card-title">Payment</h5>
                 <p>
@@ -314,14 +314,14 @@ const OrderScreen = () => {
                 )}
               </div>
             </div>
-            <div className="card mb-3" style={{ width: '45rem' }}>
+            <div className="card mb-3">
               <div className="card-body">
                 <h5 className="card-title">Items</h5>
                 <ul className="list-group list-group-flush">
                   {order.orderItem.map((item) => (
                     <li className="list-group-item" key={item.slug}>
                       <div className="row">
-                        <div className="col-8">
+                        <div className="col-7 col-md-8">
                           <img
                             src={item.image}
                             alt={item.name}
@@ -329,10 +329,10 @@ const OrderScreen = () => {
                           />
                           <Link to={`/product/${item.slug}`}>{item.name}</Link>
                         </div>
-                        <div className="col-2">
+                        <div className="col-2 col-md-2">
                           <span>{item.quantity}</span>
                         </div>
-                        <div className="col-2">
+                        <div className="col-3 col-md-2">
                           <span>{item.price}</span>
                         </div>
                       </div>
@@ -342,8 +342,8 @@ const OrderScreen = () => {
               </div>
             </div>
           </div>
-          <div className="col-4">
-            <div className="card" style={{ width: '25rem' }}>
+          <div className="col-12 col-md-4">
+            <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Order Summary</h5>
                 <ul className="list-group list-group-flush">
