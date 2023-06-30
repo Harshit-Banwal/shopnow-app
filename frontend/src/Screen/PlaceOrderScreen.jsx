@@ -187,15 +187,18 @@ const PlaceOrderScreen = () => {
                     </li>
                     <li className="list-group-item">
                       <div className="d-grid">
-                        <button
-                          className="btn btn-warning"
-                          onClick={placeOrderHandler}
-                          type="button"
-                          disabled={cart.cartItems.length === 0}
-                        >
-                          Place Order
-                        </button>
-                        {loading && <Loading></Loading>}
+                        {loading ? (
+                          <Loading></Loading>
+                        ) : (
+                          <button
+                            className="btn btn-warning"
+                            onClick={placeOrderHandler}
+                            type="button"
+                            disabled={cart.cartItems.length === 0}
+                          >
+                            Place Order
+                          </button>
+                        )}
                       </div>
                     </li>
                   </ul>

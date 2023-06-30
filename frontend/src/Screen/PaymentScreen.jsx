@@ -14,7 +14,7 @@ const PaymentScreen = () => {
   } = state;
 
   const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || 'Instamojo'
+    paymentMethod || 'RazorPay'
   );
 
   useEffect(() => {

@@ -160,7 +160,7 @@ paymentRouter.post(
     const email = payload.email;
     const currentUrl = payload.url;
 
-    console.log(payload, 'payloadData');
+    // console.log(payload, 'payloadData');
 
     const { access_token } = await generateAccessToken();
 
@@ -185,7 +185,7 @@ paymentRouter.post(
     };
     const createPayment = await axios(options);
 
-    console.log(createPayment.data, 'instamojo payment data');
+    // console.log(createPayment.data, 'instamojo payment data');
 
     if (createPayment.data) {
       res.status(201).send(createPayment.data);
@@ -202,7 +202,7 @@ paymentRouter.post(
     let payment_id = payload.payment_id;
     let payment_status = payload.payment_status;
 
-    console.log(payload, 'on_success');
+    // console.log(payload, 'on_success');
 
     //Order exist or not
     let order = await Order.findById(req.params.id);

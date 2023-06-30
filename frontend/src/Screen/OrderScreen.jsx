@@ -102,6 +102,7 @@ const OrderScreen = () => {
 
       console.log('result', result.data);
       const { amount, currency, id } = result.data.razorOrder;
+      console.log(isPending, loadingPay);
 
       const options = {
         key: razorPayKey,
@@ -134,6 +135,7 @@ const OrderScreen = () => {
             toast.success('Order is paid');
             // window.location.reload();
           } else {
+            setIsPending(false);
             dispatch({ type: 'PAY_FAIL' });
             toast.error(getError('Invalid Payment'));
           }
@@ -152,6 +154,7 @@ const OrderScreen = () => {
 
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
+      dispatch({ type: 'PAY_RESET' });
     } catch (error) {
       dispatch({ type: 'PAY_FAIL', payload: getError(error) });
       toast.error(getError(error));
@@ -199,7 +202,7 @@ const OrderScreen = () => {
       if (result.status === 201) {
         setIsPending(true);
         dispatch({ type: 'PAY_SUCCESS' });
-        toast.success('Order is placed');
+        toast.success('Order is placed Please wait.');
         window.location.href = result.data.longurl;
       } else {
         dispatch({ type: 'PAY_FAIL' });
@@ -261,10 +264,12 @@ const OrderScreen = () => {
         json,
         { headers: { 'Content-Type': 'application/Json' } }
       );
-      console.log(data);
+      if (data) {
+        window.location.reload();
+      }
     };
 
-    if (instamojo_id) {
+    if (order.isPaid === false && instamojo_id) {
       on_success();
     }
   }, [order, orderId, instamojo_id, instamojo_status, userInfo]);
@@ -383,26 +388,26 @@ const OrderScreen = () => {
                   </li>
                   {!order.isPaid && (
                     <li className="list-group-item">
-                      {isPending ? (
+                      {loadingPay || isPending ? (
                         <Loading />
                       ) : order.paymentMethod === 'RazorPay' ? (
                         <button
                           onClick={placeOrderHandler}
-                          className="btn btn-outline-primary mt-2"
+                          className="btn btn-primary mt-2"
                         >
                           Pay Now
                         </button>
                       ) : (
                         <button
                           onClick={placeOrderHandler2}
-                          className="btn btn-outline-warning"
+                          className="btn btn-warning"
                         >
                           Pay Now
                         </button>
                       )}
                     </li>
                   )}
-                  {loadingPay && <Loading />}
+                  {/* {loadingPay && <Loading />} */}
                 </ul>
               </div>
             </div>
