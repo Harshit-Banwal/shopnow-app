@@ -6,7 +6,7 @@
     "node": "16.13.2"
   },
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
