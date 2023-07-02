@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 // import data from '../data';
 import axios from 'axios';
-import logger from 'use-reducer-logger';
 import ProductItem from './ProductItem';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
@@ -20,7 +19,7 @@ const reducer = (state, action) => {
 };
 
 const Product = () => {
-  const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, products }, dispatch] = useReducer(reducer, {
     products: [],
     loading: true,
     error: '',
