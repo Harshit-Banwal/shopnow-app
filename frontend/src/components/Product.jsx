@@ -4,6 +4,7 @@ import axios from 'axios';
 import ProductItem from './ProductItem';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import { API } from '../backend.js';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,12 +31,12 @@ const Product = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('/api/products');
+        const result = await axios.get(`${API}/api/products`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setProducts(result.data);
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: error.message });
-        // console.log(error);
+        console.log(error);
       }
     };
     fetchData();

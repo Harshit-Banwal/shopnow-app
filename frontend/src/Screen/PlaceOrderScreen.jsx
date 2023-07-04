@@ -7,6 +7,7 @@ import { useReducer } from 'react';
 import { getError } from '../error';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { API } from '../backend';
 import Loading from '../components/Loading';
 
 const reducer = (state, action) => {
@@ -49,7 +50,7 @@ const PlaceOrderScreen = () => {
       dispatch({ type: 'CREATE_REQUEST' });
 
       const { data } = await axios.post(
-        '/api/orders',
+        `${API}/api/orders`,
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,

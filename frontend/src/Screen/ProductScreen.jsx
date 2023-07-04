@@ -8,6 +8,7 @@ import Error from '../components/Error';
 import { getError } from '../error';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { API } from '../backend';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +39,7 @@ const ProductScreen = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(`${API}/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setProducts(result.data);
       } catch (error) {
@@ -54,7 +55,7 @@ const ProductScreen = () => {
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`${API}/api/products/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;

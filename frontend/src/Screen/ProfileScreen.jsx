@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { getError } from '../error';
 import { Store } from '../Store';
+import Loading from '../components/Loading';
+import { API } from '../backend';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -35,7 +37,7 @@ const ProfileScreen = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        '/api/users/profile',
+        `${API}/api/users/profile`,
         {
           name,
           email,
@@ -112,9 +114,13 @@ const ProfileScreen = () => {
               className="form-control"
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Update
-          </button>
+          {loadingUpdate ? (
+            <Loading />
+          ) : (
+            <button type="submit" className="btn btn-primary">
+              Update
+            </button>
+          )}
         </form>
       </div>
     </>

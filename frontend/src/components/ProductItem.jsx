@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Store } from '../Store';
 import Rating from './Rating';
+import { API } from '../backend';
 
 const ProductItem = (props) => {
   const { product } = props;
@@ -15,7 +16,7 @@ const ProductItem = (props) => {
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${API}/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;

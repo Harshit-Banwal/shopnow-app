@@ -5,6 +5,7 @@ import { Store } from '../Store';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API } from '../backend';
 import { getError } from '../error';
 // import razorPayLogo from '../../public/images/razorparLogo.png';
 import { toast } from 'react-toastify';
@@ -90,7 +91,7 @@ const OrderScreen = () => {
       }
 
       const result = await axios.post(
-        '/api/payment/razororder',
+        `${API}/api/payment/razororder`,
         {
           amount: order.totalPrice,
           currency: 'INR',
@@ -122,7 +123,7 @@ const OrderScreen = () => {
           const json = JSON.stringify(data);
 
           let result1 = await axios.post(
-            `/api/payment/${order._id}/razor_success`,
+            `${API}/api/payment/${order._id}/razor_success`,
             json,
             { headers: { 'Content-Type': 'application/Json' } }
           );
@@ -188,7 +189,7 @@ const OrderScreen = () => {
       // const data = JSON.stringify(options);
 
       const result = await axios.post(
-        '/api/payment/instamojo',
+        `${API}/api/payment/instamojo`,
         { options },
         {
           headers: {
@@ -218,7 +219,7 @@ const OrderScreen = () => {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${API}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         console.log(data);
@@ -239,7 +240,7 @@ const OrderScreen = () => {
       }
     } else {
       const getKeyId = async () => {
-        const { data: data2 } = await axios.get(`/api/payment/razorid`, {
+        const { data: data2 } = await axios.get(`${API}/api/payment/razorid`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         console.log(data2, 'razorPaykey_data');
@@ -260,7 +261,7 @@ const OrderScreen = () => {
       const json = JSON.stringify(options);
 
       const { data } = await axios.post(
-        `/api/payment/${orderId}/instamojo_success`,
+        `${API}/api/payment/${orderId}/instamojo_success`,
         json,
         { headers: { 'Content-Type': 'application/Json' } }
       );

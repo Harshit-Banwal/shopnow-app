@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { getError } from '../error';
 import { toast } from 'react-toastify';
 import Loading from '../components/Loading';
+import { API } from '../backend';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -57,7 +58,7 @@ const SignupScreen = () => {
     }
     try {
       dispatch({ type: 'OTP_FETCH' });
-      const { data } = await axios.post('/api/users/getOtp', {
+      const { data } = await axios.post(`${API}/api/users/getOtp`, {
         email,
       });
       dispatch({ type: 'OTP_SUCCESS', payload: data });
@@ -93,7 +94,7 @@ const SignupScreen = () => {
         return;
       }
 
-      const { data } = await axios.post('/api/users/signup', {
+      const { data } = await axios.post(`${API}/api/users/signup`, {
         name,
         email,
         password,

@@ -3,6 +3,7 @@ import { Store } from '../Store';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API } from '../backend';
 
 const CartScreen = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const CartScreen = () => {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${API}/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
