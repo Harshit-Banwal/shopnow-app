@@ -57,7 +57,7 @@ const SignupScreen = () => {
       return;
     }
     try {
-      dispatch({ type: 'OTP_FETCH' });
+      dispatch({ type: 'OTP_REQ' });
       const { data } = await axios.post(`${API}/api/users/getOtp`, {
         email,
       });

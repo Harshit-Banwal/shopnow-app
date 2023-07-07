@@ -120,21 +120,17 @@ paymentRouter.post(
         };
         const updateOrder = await order.save();
 
-        const mailOptions = {
-          from: '"Shop-Now" <developerhb15@gmail.com>',
-          to: payload.email,
-          subject: 'Shop Now - Order Placement',
-          html: `<p>Your Order is <h3>SuccessFully Placed</h3></p> 
+        async function main() {
+          const info = await transporter.sendMail({
+            from: '"Shop-Now" <developerhb15@gmail.com>',
+            to: payload.email,
+            subject: 'Shop Now - Order Placement',
+            html: `<p>Your Order is <h3>SuccessFully Placed</h3></p> 
           <p>Thank you for choosing us! Your support is greatly appreciated. We hope you enjoy your purchase and we look forward to serving you again.</p>`,
-        };
-
-        await transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-        });
+          });
+          console.log(info.messageId);
+        }
+        main().catch(console.error);
 
         res.status(201).send({
           message: 'Order paid',

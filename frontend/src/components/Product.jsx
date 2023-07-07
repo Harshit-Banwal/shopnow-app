@@ -52,7 +52,7 @@ const Product = () => {
         ) : (
           products.map((product) => {
             return (
-              <div key={product.slug} className="col-md-3">
+              <div key={product.slug} className="col-6 col-md-3">
                 <ProductItem product={product} />
               </div>
             );
