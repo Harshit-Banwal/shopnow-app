@@ -161,7 +161,7 @@ const SignupScreen = () => {
               className="form-control"
             />
           </div>
-          {loading ? (
+          {/* {loading ? (
             <Loading />
           ) : (
             <button
@@ -173,7 +173,16 @@ const SignupScreen = () => {
             >
               Sign Up
             </button>
-          )}
+          )} */}
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            onClick={submitHandler}
+          >
+            Sign Up
+          </button>
           <div className="mt-3 mb-3">
             Already have an Account?{' '}
             <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
