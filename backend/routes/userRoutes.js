@@ -24,18 +24,16 @@ userRouter.post(
     const expires = Date.now() + ttl;
     console.log('otp: ', otp);
 
-    async function main() {
-      const info = await transporter.sendMail({
+    const mail = await transporter
+      .sendMail({
         from: '"Shop-Now" <developerhb15@gmail.com>',
         to: email,
         subject: 'Shop Now - OTP Verification',
         html: `<h4>This OTP is for your personal use only. Kindly refrain from sharing it with others</h4> 
            <p>Here is Your Otp <span>${otp}</span></p>`,
-      });
-      console.log(info.messageId);
-    }
-    main().catch((err) => console.log(err));
-
+      })
+      .then((info) => console.log(info.messageId))
+      .catch((err) => console.log(err));
     res.status(201).send({ otp: otp, expire_in: expires });
   })
 );
