@@ -11,6 +11,7 @@ userRouter.post(
   '/getOtp',
   expressAsyncHandler(async (req, res) => {
     const { email } = req.body;
+    console.log('email: ', email);
 
     const user = await User.findOne({ email: email });
 
@@ -33,7 +34,7 @@ userRouter.post(
       });
       console.log(info.messageId);
     }
-    main().catch(console.error);
+    main().catch((err) => console.log(err));
 
     res.status(201).send({ otp: otp, expire_in: expires });
   })
