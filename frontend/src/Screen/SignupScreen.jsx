@@ -8,6 +8,7 @@ import { getError } from '../error';
 import { toast } from 'react-toastify';
 import Loading from '../components/Loading';
 import { API } from '../backend';
+import Error from '../components/Error';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,13 +16,21 @@ function reducer(state, action) {
       return { ...state, loading: true };
 
     case 'OTP_SUCCESS':
-      return { ...state, loading: false, otp: action.payload, modalBody: true };
+      return {
+        ...state,
+        loading: false,
+        otp: action.payload,
+        modalBody: true,
+        error: '',
+      };
 
     case 'OTP_FAIL':
       return {
+        ...state,
         loading: false,
         otp: {},
         modalBody: false,
+        error: action.payload,
       };
 
     default:
@@ -45,17 +54,14 @@ const SignupScreen = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
 
-  const [{ loading, otp, modalBody }, dispatch] = useReducer(reducer, {
+  const [{ loading, otp, modalBody, error }, dispatch] = useReducer(reducer, {
     loading: false,
     otp: {},
     modalBody: false,
+    error: '',
   });
 
   const otpHandler = async () => {
-    if (!email) {
-      toast.error('Please Provide the email');
-      return;
-    }
     try {
       dispatch({ type: 'OTP_REQ' });
       const { data } = await axios.post(`${API}/api/users/getOtp`, {
@@ -64,7 +70,7 @@ const SignupScreen = () => {
       dispatch({ type: 'OTP_SUCCESS', payload: data });
       console.log(otp);
     } catch (err) {
-      dispatch({ type: 'OTP_FAIL' });
+      dispatch({ type: 'OTP_FAIL', payload: err });
       toast.error(getError(err));
     }
   };
@@ -72,12 +78,26 @@ const SignupScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!email || !name || !password || !confirmPassword) {
+      dispatch({
+        type: 'OTP_FAIL',
+        payload: !email
+          ? 'Email field missing'
+          : !name
+          ? 'Name field missing'
+          : !password
+          ? 'Password is missing'
+          : 'Confirm Password is missing',
+      });
       toast.error('Please fill all the details');
       return;
     }
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      dispatch({
+        type: 'OTP_FAIL',
+        payload: 'Password does not match with Confirm password',
+      });
+      toast.error('Passwords does not match');
       return;
     }
     await otpHandler();
@@ -161,19 +181,6 @@ const SignupScreen = () => {
               className="form-control"
             />
           </div>
-          {/* {loading ? (
-            <Loading />
-          ) : (
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              onClick={submitHandler}
-            >
-              Sign Up
-            </button>
-          )} */}
           <button
             type="button"
             className="btn btn-primary"
@@ -204,7 +211,7 @@ const SignupScreen = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Verify Your Email.
+                Verify Your Email Address.
               </h1>
               <button
                 type="button"
@@ -217,7 +224,12 @@ const SignupScreen = () => {
               <div className="modal-body">
                 <Loading />
               </div>
-            ) : modalBody ? (
+            ) : error !== '' ? (
+              <div className="modal-body">
+                <h2 className="mb-2">Something went wrong</h2>
+                <Error color="danger">{error}</Error>
+              </div>
+            ) : (
               <div className="modal-body">
                 <div className="mb-2">
                   <p>
@@ -244,13 +256,6 @@ const SignupScreen = () => {
                     />
                   </div>
                 </form>
-              </div>
-            ) : (
-              <div className="modal-body">
-                <h2>Details Not Provided.</h2>
-                <p className="mt-2">
-                  Your details are necessary for further process.
-                </p>
               </div>
             )}
             <div className="modal-footer">
