@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Store } from '../Store';
 import Rating from './Rating';
 import { API } from '../backend';
+import { toast } from 'react-toastify';
 
 const ProductItem = (props) => {
   const { product } = props;
@@ -13,6 +14,8 @@ const ProductItem = (props) => {
     cart: { cartItems },
   } = state;
 
+  const [outOfStock, setOutOfStock] = useState(false);
+
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -21,10 +24,14 @@ const ProductItem = (props) => {
       window.alert('Sorry. Product is out of stock');
       return;
     }
+    if (quantity >= data.countInStock) {
+      setOutOfStock(true);
+    }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity },
     });
+    toast.success('Item Added to Cart');
   };
 
   return (
@@ -46,7 +53,7 @@ const ProductItem = (props) => {
             <p>
               <strong>₹{product.price}</strong>
             </p>
-            {product.countInStock === 0 ? (
+            {outOfStock ? (
               <button type="button" disabled className="btn btn-light">
                 Out OF Stock
               </button>
