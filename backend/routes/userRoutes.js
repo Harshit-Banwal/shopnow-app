@@ -16,7 +16,8 @@ userRouter.post(
     const user = await User.findOne({ email: email });
 
     if (user) {
-      return res.send({ Message: 'User already Exist.' });
+      res.status(401).send({ message: 'User already Exist.' });
+      return;
     }
 
     let otp = Math.floor(100000 + Math.random() * 900000);

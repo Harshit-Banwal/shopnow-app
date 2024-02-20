@@ -61,16 +61,18 @@ const SignupScreen = () => {
     error: '',
   });
 
+  // -----------------------------------Send OTP to user
   const otpHandler = async () => {
     try {
       dispatch({ type: 'OTP_REQ' });
       const { data } = await axios.post(`${API}/api/users/getOtp`, {
         email,
       });
+      console.log(data);
       dispatch({ type: 'OTP_SUCCESS', payload: data });
       console.log(otp);
     } catch (err) {
-      dispatch({ type: 'OTP_FAIL', payload: err });
+      dispatch({ type: 'OTP_FAIL', payload: err.message });
       toast.error(getError(err));
     }
   };
