@@ -1,4 +1,3 @@
-import Footer from './components/Footer';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -44,10 +43,6 @@ function App() {
             <Route path="/order/:id" element={<OrderScreen />} />
           </Routes>
         </main>
-
-        <footer>
-          <Footer />
-        </footer>
       </div>
     </BrowserRouter>
   );
