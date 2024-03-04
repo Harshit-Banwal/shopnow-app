@@ -20,7 +20,7 @@ function App() {
     <BrowserRouter>
       <div className="d-flex flex-column main-screen">
         <ToastContainer position="bottom-center" limit={1} />
-        <header>
+        <header id="header">
           <Header />
         </header>
         <main>

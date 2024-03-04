@@ -48,39 +48,31 @@ const SigninScreen = () => {
         <title>Sign In</title>
       </Helmet>
 
-      <div className="container form-width">
-        <div className="m-4">
+      <div className="container" id="sign-in">
+        <form onSubmit={submitHandler} className="account-form">
           <h2>Sign In</h2>
-        </div>
-
-        <form onSubmit={submitHandler}>
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
-            </label>
+          <div className="input-field">
+            <i className="fas fa-envelope"></i>
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              placeholder="Email"
             />
-            <div id="emailHelp" className="form-text">
-              We'll never share your email with anyone else.
-            </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
+          <div className="input-field">
+            <i className="fas fa-lock"></i>
             <input
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="form-control"
+              placeholder="Password"
               id="exampleInputPassword1"
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="form-btn">
             Sign In
           </button>
           <div className="mt-3 mb-3">

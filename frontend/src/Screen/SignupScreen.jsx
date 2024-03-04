@@ -109,7 +109,7 @@ const SignupScreen = () => {
     e.preventDefault();
 
     try {
-      console.log('userOTP: ', userOtp, 'OTP: ', otp.otp);
+      // console.log('userOTP: ', userOtp, 'OTP: ', otp.otp);
 
       if (otp.otp !== userOtp) {
         toast.error('OTP does not match');
@@ -141,51 +141,48 @@ const SignupScreen = () => {
         <title>Sign Up</title>
       </Helmet>
 
-      <div className="container form-width">
-        <div className="m-4">
-          <h2>Sign Up</h2>
-        </div>
-
-        <form>
-          <div className="mb-3">
-            <label className="form-label">Name</label>
+      <div className="container form-width" id="sign-up">
+        <form action="" className="account-form">
+          <h2>Sign up</h2>
+          <div className="input-field">
+            <i className="fas fa-user"></i>
             <input
               onChange={(e) => setName(e.target.value)}
               type="name"
               required
-              className="form-control"
+              placeholder="Username"
             />
           </div>
-          <div className="mb-3">
-            <label className="form-label">Email address</label>
+          <div className="input-field">
+            <i className="fas fa-envelope"></i>
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               required
-              className="form-control"
+              placeholder="Email"
             />
           </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
+          <div className="input-field">
+            <i className="fas fa-lock"></i>
             <input
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               required
-              className="form-control"
+              placeholder="Password"
             />
           </div>
-          <div className="mb-3">
-            <label className="form-label">Confirm Password</label>
+          <div className="input-field">
+            <i className="fas fa-lock"></i>
             <input
               onChange={(e) => setConfirmPassword(e.target.value)}
               type="password"
               required
-              className="form-control"
+              placeholder="Confirm Password"
             />
           </div>
           <button
             type="button"
-            className="btn btn-primary"
+            className="form-btn"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
             onClick={submitHandler}
@@ -253,7 +250,6 @@ const SignupScreen = () => {
                     <input
                       type="number"
                       onChange={(e) => setUserOtp(parseInt(e.target.value))}
-                      className="form-control"
                       id="otp"
                     />
                   </div>
