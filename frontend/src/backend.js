@@ -1,2 +1,2 @@
-export const API = 'http://localhost:5000';
-// export const API = 'https://shop-now-api.vercel.app';
+// export const API = 'http://localhost:5000';
+export const API = 'https://shop-now-api.vercel.app';
